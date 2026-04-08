@@ -20,7 +20,8 @@ By integrating the Groq AI (Llama 3) model, the system:
 The agent flow has two phases — a pre-audit scan, and then an interactive gap-fixing session (should be done in second phase):
 
 ## Audit Process Flow
-![Audit Flow Diagram](Documents/audit-flow-phase1.png)
+![Audit Flow Diagram](audit-flow.jpg.png)
+[cite_start]*תרשים המתאר את זרימת המידע מהשאילתה ב-SQL Server ועד לניתוח ה-AI והפקת הדוח[cite: 4].*
 
 🏗️ Architectural Overview
 
