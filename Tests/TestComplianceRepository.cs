@@ -1,23 +1,61 @@
-﻿using NUnit.Framework;
+﻿using Dapper;
+using NUnit.Framework;
+using SafetyCompliance.Models;
+using SafetyCompliance.Repositories;
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
+using System.Data;
 using System.Data.Common;
-using SafetyCompliance.Repositories;
-using SafetyCompliance.Models;
+using System.Data.SqlClient;
+using System.Threading.Tasks;
 
 namespace SafetyCompliance.Tests
 {
     [TestFixture]
-    public class ComplianceRepositoryTests
+    public class TestComplianceRepository
     {
-        private const string TestConnectionString = "Server=(localdb)\\mssqllocaldb;Database=SafetyComplianceTest;Trusted_Connection=True;";
         private ComplianceRepository _repository;
 
         [SetUp]
-        public void SetUp()
+        public async Task SetUp()
         {
-            _repository = new ComplianceRepository(TestConnectionString);
+            string masterConnString = @"Server=(localdb)\mssqllocaldb;Database=master;Trusted_Connection=True;";
+
+            string testDbName = "SafetyComplianceTest";
+            string testConnString = $@"Server=(localdb)\mssqllocaldb;Database={testDbName};Trusted_Connection=True;";
+
+            _repository = new ComplianceRepository(testConnString);
+
+            using (IDbConnection masterConn = new SqlConnection(masterConnString))
+            {
+                await masterConn.ExecuteAsync($@"
+                        IF NOT EXISTS (SELECT * FROM sys.databases WHERE name = '{testDbName}')
+                        BEGIN
+                            CREATE DATABASE [{testDbName}]
+                        END");
+            }
+
+            using (IDbConnection testDbConn = new SqlConnection(testConnString))
+            {
+                const string createTableSql = @"
+                            IF NOT EXISTS (SELECT * FROM sys.tables WHERE name = 'AuditResults')
+                            BEGIN
+                                CREATE TABLE AuditResults (
+                                    Id INT IDENTITY(1,1) PRIMARY KEY,
+                                    OfficerId INT,
+                                    AuditType NVARCHAR(50),
+                                    Summary NVARCHAR(MAX),
+                                    GapsJson NVARCHAR(MAX),
+                                    ReadinessScore INT,
+                                    CriticalCount INT,
+                                    MediumCount INT,
+                                    LowCount INT,
+                                    ScanDate DATETIME
+                                )
+                            END";
+
+                await testDbConn.ExecuteAsync(createTableSql);
+            }
         }
 
         [Test]
