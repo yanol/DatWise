@@ -24,3 +24,34 @@ The project follows a Layered Architecture to ensure high maintainability and te
 - Service Layer: Business logic (ComplianceAgentService) coordinating between database state and AI analysis.
 - Infrastructure Layer: Handles external Groq API calls and efficient data access using ComplianceRepository.
 - AI Integration: A specialized PromptBuilder transforms raw SQL rows into natural language context for the LLM.
+
+🛠️ Technical Stack
+
+- Backend: .NET / C#
+- Data Access: Dapper (Micro-ORM) for high-performance SQL queries.
+- Database: SQL Server
+- AI Engine: Groq API (Llama 3)
+- JSON Handling: Newtonsoft.Json for complex data serialization.
+
+📊 Repository Features (ComplianceRepository.cs)
+
+The repository provides comprehensive coverage for safety audits:
+
+- Training Gaps: Identifies expired certificates or those expiring within a 30-day window.
+- Equipment Gaps: Tracks overdue inspections based on required frequencies.
+- Open Incidents: Filters and summarizes incidents within specific date ranges.
+- Permit Monitoring: Alerts on expiring work permits (60-day window).
+- Emergency Drills: Validates compliance with drill frequency regulations.
+
+⚙️ How to Run Locally
+
+- Database: Run the provided schema.sql on your SQL Server instance.
+- Configuration: Update the SafetyDB connection string in Web.config.
+- API Key: Add your GroqApiKey to the appSettings section.
+- Tests: Run the NUnit 3 test suite to verify the Integration Heat Tests and Data Integrity.
+
+
+
+
+
+
