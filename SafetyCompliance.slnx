@@ -1,0 +1,7 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="Readme.txt" />
+  </Folder>
+  <Project Path="SafetyCompliance.csproj" Id="2522198e-737a-4515-9183-d152ecede6e3" />
+  <Project Path="Tests/Tests.csproj" Id="1c613d9a-896c-498b-902c-e3fa0e9d49c9" />
+</Solution>
