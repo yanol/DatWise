@@ -17,6 +17,11 @@ By integrating the Groq AI (Llama 3) model, the system:
 - Scores Readiness: Calculates a real-time Readiness Score (0-100%) based on audit findings.
 - Actionable Insights: Generates AI-driven recommendations on how to close compliance gaps.
 
+The agent flow has two phases — a pre-audit scan, and then an interactive gap-fixing session (should be done in second phase):
+
+## Audit Process Flow
+![Audit Flow Diagram](Documents/audit-flow-phase1.png)
+
 🏗️ Architectural Overview
 
 The project follows a Layered Architecture to ensure high maintainability and testability:
