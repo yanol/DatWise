@@ -21,7 +21,6 @@ The agent flow has two phases — a pre-audit scan, and then an interactive gap-
 
 ## Audit Process Flow
 ![Audit Flow Diagram](audit-flow.jpg.png)
-[cite_start]*תרשים המתאר את זרימת המידע מהשאילתה ב-SQL Server ועד לניתוח ה-AI והפקת הדוח[cite: 4].*
 
 🏗️ Architectural Overview
 
